@@ -1,0 +1,32 @@
+ninja_required_version = 1.3
+cxx = c++
+nvcc = /usr/local/cuda-11.1/bin/nvcc
+
+cflags = -pthread -B /home/multiai3/anaconda3/envs/zh_groupvit/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -DWITH_CUDA -I/ZhouHeng/Projects/RefCLIP/utils/DCN/src -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/TH -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/THC -I/usr/local/cuda-11.1/include -I/home/multiai3/anaconda3/envs/zh_groupvit/include/python3.7m -c
+post_cflags = -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=DCN -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++14
+cuda_cflags = -DWITH_CUDA -I/ZhouHeng/Projects/RefCLIP/utils/DCN/src -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/TH -I/home/multiai3/anaconda3/envs/zh_groupvit/lib/python3.7/site-packages/torch/include/THC -I/usr/local/cuda-11.1/include -I/home/multiai3/anaconda3/envs/zh_groupvit/include/python3.7m -c
+cuda_post_cflags = -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=DCN -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 -std=c++14
+ldflags = 
+
+rule compile
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule cuda_compile
+  depfile = $out.d
+  deps = gcc
+  command = $nvcc --generate-dependencies-with-compile --dependency-output $out.d $cuda_cflags -c $in -o $out $cuda_post_cflags
+
+
+
+build /ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/deform_conv2d_cpu.o: compile /ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/deform_conv2d_cpu.cpp
+build /ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/modulated_deform_conv2d_cpu.o: compile /ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/modulated_deform_conv2d_cpu.cpp
+build /ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/deform_conv2d_cuda.o: cuda_compile /ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/deform_conv2d_cuda.cu
+build /ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/modulated_deform_conv2d_cuda.o: cuda_compile /ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/modulated_deform_conv2d_cuda.cu
+build /ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/vision.o: compile /ZhouHeng/Projects/RefCLIP/utils/DCN/src/vision.cpp
+
+
+
+
+
