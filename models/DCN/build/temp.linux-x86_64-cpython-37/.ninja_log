@@ -1,6 +1,0 @@
-# ninja log v5
-0	4305	1704692683	/ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/deform_conv2d_cpu.o	ca0116409f739333
-1	4458	1704692683	/ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cpu/modulated_deform_conv2d_cpu.o	22c3257fa710f164
-1	10720	1704692689	/ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/modulated_deform_conv2d_cuda.o	65e31c59cc7358fe
-1	11026	1704692690	/ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/cuda/deform_conv2d_cuda.o	a776d9868697fbf1
-1	19598	1704692698	/ZhouHeng/Projects/RefCLIP/utils/DCN/build/temp.linux-x86_64-cpython-37/ZhouHeng/Projects/RefCLIP/utils/DCN/src/vision.o	5a33741af8a309e8
