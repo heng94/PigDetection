@@ -2,4 +2,6 @@ data/
 data_processing/
 design_log.md
 pretrains/
-models/DCN/
+models/DCN/build/
+models/DCN/DCN.egg-info/
+models/DCN/dist/
