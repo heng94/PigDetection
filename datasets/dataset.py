@@ -75,7 +75,7 @@ class PigCOCODataset(Dataset):
         img_info = np.array(img_info)
         
         if self.split == 'train':
-            return prompt, image, img_info
+            return prompt, image
         else:
             return prompt, image, bbox, gt_bbox, img_info
         

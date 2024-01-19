@@ -12,7 +12,7 @@ class TextEncoder(nn.Module):
         self.tokenizer = clip.tokenize
         self.model, _ = clip.load(cfg.clip_pretrain, device=cfg.device)
         
-        # freeze the model
+        # freeze the parameters
         if getattr(self.model, 'module', False):
             for child in self.model.module():
                 for param in child.parameters():
